@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!--heavily edited a base theme from bootply.com-->
+<html>
+	<head>
+		<title>Things to Do! NY</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link href="styles.css" rel="stylesheet">
+		    
+		<link href='https://fonts.googleapis.com/css?family=Amaranth:700' rel='stylesheet' type='text/css'>
+        
+        <!--js-->
+        <script src="jquery-2.1.1.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+        
+        
+        <!--datetimepicker scripts-->
+        <link rel="stylesheet" href="calendar/bootstrap-datetimepicker.min.css" />
+        <script type="text/javascript" src="calendar/moment.js"></script>
+	    <script type="text/javascript" src="calendar/transition.js"></script>
+	    <script type="text/javascript" src="calendar/collapse.js"></script>
+	    <script type="text/javascript" src="calendar/bootstrap-datetimepicker.min.js"></script> 
+	</head>
+	<body>
+	      <!--first top bar--> 
+        <nav class="navbar navbar-fixed-top header">
+         	<div class="col-md-12">
+                <div class="navbar-header">
+                  
+                  <div class="navbar-brand"><img src="ticket2edited.png" style="height:40px;width:auto;margin:2px;">Things to Do! NY</div>
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+                  <i class="glyphicon glyphicon-chevron-down"></i>
+                  </button>
+              
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse1">
+
+                  <ul class="nav navbar-nav navbar-right">
+                     
+                     <li><a class="menuBtn" href="index2.html">Home</a></li>
+                     <li><a class="menuBtn" href="#eventModal" role="button" data-toggle="modal">My Bookmarked Events</a></li>
+                     <li><a class="menuBtn" href="#aboutModal" role="button" data-toggle="modal">About</a></li>
+                     <li><a class="menuBtn" href="#helpModal" role="button" data-toggle="modal">Help</a></li>
+                     
+                   </ul>
+                </div>	
+             </div>	
+        </nav>
+  
+        <!--2nd top bar-->
+        <div class="navbar navbar-default" id="subnav">
+            <div class="col-md-12">
+                <div class="navbar-header">
+
+                  <form class="navbar-form pull-left" style="width:100vw;margin-top:0px;margin-bottom:0px;padding-left:5px;padding-right:5px;">
+                    <form class="form-inline" role="form">
+                      <div class="form-group">                
+                        <!--datetimepicker code from Yumeng's previous projects-->        
+                        <div class='input-group date' id='mindate'>
+                			<span class="input-group-addon" style="padding-left:2px;padding-right:2px;">Start</span>               
+                            <input type='text' class="form-control" style="width:100px;" />
+                            <span class="input-group-addon datepickerbutton" style="padding-left:2px;padding-right:2px;"><span class="glyphicon glyphicon-calendar"></span>
+                        </div> 
+                        <script type="text/javascript"> 
+                            //get today's date and set as default
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; //January is 0!
+                            var yyyy = today.getFullYear();
+                
+                            if(dd<10) {
+                                dd='0'+dd
+                            } 
+                
+                            if(mm<10) {
+                                mm='0'+mm
+                            } 
+                
+                            today = mm+'/'+dd+'/'+yyyy;            
+                
+                            //widget requirements
+                            //time picking is disabled at the moment, may enable later
+                            $(function () {
+                                $('#mindate').datetimepicker({
+                                  defaultDate: today,
+                                  pickTime: false});
+                            });
+                        </script>        
+                        
+                        
+                        
+                        <!--2nd datetimepicker-->        
+                        <div class='input-group date' id='maxdate'>
+                			<span class="input-group-addon" style="padding-left:2px;padding-right:2px;">End</span>                 
+                            <input type='text' class="form-control" style="width:100px;" />
+                            <span class="input-group-addon datepickerbutton" style="padding-left:2px;padding-right:2px;"><span class="glyphicon glyphicon-calendar"></span>
+                        </div> 
+                        <script type="text/javascript"> 
+                            //get today's date and set as default
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; //January is 0!
+                            var yyyy = today.getFullYear();
+                
+                            if(dd<10) {
+                                dd='0'+dd
+                            } 
+                
+                            if(mm<10) {
+                                mm='0'+mm
+                            } 
+                
+                            today = mm+'/'+dd+'/'+yyyy;            
+                
+                            //widget requirements
+                            //time picking is disabled at the moment, may enable later
+                            $(function () {
+                                $('#maxdate').datetimepicker({
+                                  defaultDate: today,
+                                  pickTime: false});
+                            });
+                        </script>           
+                        </div>
+                        
+                        <select class="navbar-btn btn btn-default" id="radius" style="padding-left:2px;padding-right:2px;">Radius<span class="caret"></span>
+                                <option value="25">Radius</option>
+                                <option value="5">5 km</option>
+                                <option value="10">10 km</option>
+                                <option value="15">15 km</option>
+                                <option value="20">20 km</option>
+                                <option value="25">25 km</option>
+                            
+                        </select>
+                        
+                                            
+                        <select class="navbar-btn btn btn-default" id="borough" style="padding-left:2px;padding-right:2px;">Borough<span class="caret"></span>
+                                
+                                <option value="Manhattan">Borough</option>
+                                <option value="Manhattan">Manhattan</option>
+                                <option value="Queens">Queens</option>
+                                <option value="StatenIsland">Staten Island</option>
+                                <option value="Bronx">Bronx</option>
+                                <option value="Brooklyn">Brooklyn</option>
+                                                                
+                        </select>
+                    
+                    
+                        <select class="navbar-btn btn btn-default" id="eventtype" style="padding-left:2px;padding-right:2px;">Event Type<span class="caret"></span>
+                            
+                                <option value="All">All events</option>
+                                <option value="Jazz">Jazz</option>
+                                <option value="Dance">Dance</option>
+                                <option value="Theater">Theater</option>
+                                <option value="Art">Art</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Movies">Movies</option>
+                                <option value="Classical">Classical</option>
+                                <option value="Pop">Pop</option>
+                                <option value="forChildren">for Children</option>
+                                <option value="spareTimes">Seasonal</option>
+                                
+                                                                
+                        </select>
+                        <button type="button" id="btnSearch" class="btn btn-default btn-primary" onclick="getResults(0);">Search &raquo;</button>
+                            <!--<button type="button" id="bm1" class="btn btn-default btn-primary" onclick="addBookmark(this.id);">Bookmark &raquo;</button>-->
+
+           
+                        <div class="btn-group" style="float:right;right:30px;padding-top:10px;">
+                            <button type="button" class="btn btn-default" id="prev" style="visibility:hidden;" onclick="previouspage()">
+                                <span class="glyphicon glyphicon-arrow-left"></span> Prev</button>
+                            <button type="button" class="btn btn-default" id="next" style="visibility:hidden;" onclick="nextpage()">Next
+                                <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        </div>
+                        
+                    </form>
+
+                  </form>
+                  
+                
+                </div>
+               
+               
+                <div class="collapse navbar-collapse" id="navbar-collapse2">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li>
+
+                                                           
+                    </li>
+                   </ul>
+                </div>	
+             </div>	
+        </div>
+        
+        <!--main-->
+
+        
+        <div class="container" id="main">
+           <div class="container" id="initialMain">
+              When, where, what would you like to do?
+           </div>
+           <div class="row" style="display:none;">
+                <!--main-->
+
+                <div class="col-md-4 col-sm-6" id="map"> <!--append here for first column, alternate-->
+                  <div id="map-canvas"></div>
+        	      </div><!--col-md-4-->
+
+                <div id="colContainer" >
+              	  <div class="col-md-4 col-sm-6" id="col2"><!--second column-->
+          	      </div><!--col-md-4-->
+
+          	      <div class="col-md-4 col-sm-6" id="col3"><!--3rd-->
+                  </div><!--col-md-4-->
+                </div>
+          </div><!--/row-->
+          
+         
+             
+        </div><!--/main-->
+        
+        
+        <!--about modal-->
+        <div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <h2 class="text-center">About</h2>
+              </div>
+              <div class="modal-body">
+                  <div class="col-md-12 text-center">
+                  "Things to Do! NY" is an event listing app that enables users to browse through the New York Times' database of events happening in New York. The users can search for events around the 5 boroughs of NYC and use the map feature to see the location of the event. The app lists the type of event, date and time, whether it is a NYTimes pick of the week and if it is a free event.
+                  <br><br>Users can bookmark events and go to the corresponding event page from the bookmark panel. Individual bookmarks are easily removed, and there is also an option to remove all bookmarks. Bookmarks are saved across sessions. 
+                  <br><br>
+                  By Kira Ullman, Meril Dsouza, Sahana Subbanna, Yumeng Liao  
+                  </div>
+              </div>
+              <div class="modal-footer">
+
+              </div>
+          </div>
+          </div>
+        </div>
+        
+        <!--about modal-->
+        <div id="helpModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <h2 class="text-center">Help</h2>
+              </div>
+              <div class="modal-body">
+                  <div class="col-md-12 text-center">
+                  1. Choose the date range you want to search for events.<br />  
+                  2. Choose the borough and radius of search. <br />
+                  3. If you wish, specify a specific event type <br />
+                  4. Click on the search button. <br /><br>
+                  When the events get displayed, you can click on the markers on the map to see which event is located at the place and go to the event webpage. <br />
+                  You can see which events are free, which are chosen by NYTimes as pick of the week and date and time of the events. <br />
+                  Click the bookmark button for an event to add it to your list of bookmarks in the top right corner. <br>You can freely add and remove bookmarks, or even clear all of them. <br>
+                  There are buttons leading to the individual pages of each event you have bookmarked.  
+                  </div>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+          </div>
+        </div>        
+
+        <!--event modal-->
+        <div id="eventModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <h2 class="text-center">My Bookmarked Events</h2>
+              </div>
+              <div class="modal-body">
+                  <div class="col-md-12 text-center" id="myeventlist">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn" data-dismiss="modal" onclick="removeBookmarks();" aria-hidden="true">Clear Bookmarks</button>
+              </div>
+          </div>
+          </div>
+        </div> 
+        
+        <!--retain bookmarks from all sessions, do once when page loads--> 
+        <script>
+            makeBookmarks();
+            
+        </script>
+
+
+	</body>
+
+
+    
+</html>
